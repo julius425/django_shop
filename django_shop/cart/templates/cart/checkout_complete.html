@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<script>
+    function redirect(){
+       window.location.href = "/";
+    }
+
+    setTimeout(redirect, 2000);
+</script>
+
+<h3>Заказ успешно оформлен!</h3>
+
+{% endblock %}

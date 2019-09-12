@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  web:
+    build: ./django_shop
+    command: gunicorn -c gunicorn.conf django_shop.wsgi
+    volumes:
+      - ./django_shop:/django_shop
+    ports:
+      - "8000:8000"
+
+
+  nginx:
+    build: ./nginx
+    depends_on:
+      - web
+    command: nginx -g 'daemon off;'
+    ports:
+      - "80:80"
+    volumes:
+      - ./django_shop/static:/var/www/static
+      - ./django_shop/media:/var/www/media
+
+      - ./certs/localhost.crt:/etc/nginx/localhost.crt
+      - ./certs/localhost.key:/etc/nginx/localhost.key
+
+

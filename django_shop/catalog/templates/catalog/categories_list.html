@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Каталог</h1>
+
+    {% if categories %}
+    <ul>
+
+      {% for category in categories %}
+      <li>
+        <a href="{% url 'catalog:products' category.slug %}">{{ category.get_title_display }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Категории пока не добавлены.</p>
+    {% endif %}
+{% endblock %}
+
+
+

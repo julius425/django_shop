@@ -1,0 +1,58 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div>
+    <p>Здравствуйте, {{ profile.user.username }}!
+      <a href="{{ profile.edit_profile }}">Редактировать профиль.</a>
+    </p>
+    <p><strong>ФИО: </strong>{{ profile.name }}</p>
+    {% if profile.user_pic %}
+    <img src="{{ profile.user_pic.url }}" alt="No image" style="width:100px;height:110px;">
+    {% endif %}
+    {% if  profile.birthday %}
+    <p><strong>Дата рождения: </strong>{{ profile.birthday }}</p>
+    {% else %}
+    <p><strong>Дата рождения: </strong>
+    {% endif %}
+    <p><strong>Электронная почта: </strong>{{ profile.email }}</p>
+
+</div>
+<h4>История заказов:</h4>
+{% for order in profile.get_completed_orders %}
+<div>
+    <p><h4>Заказ №: {{ order.id }}</h4></p>
+    <p><strong>Дата заказа:</strong> {{ order.created }}</p>
+    <p><strong>Дата Доставки:</strong> {{ order.order_date }}</p>
+    {% if order.order_address %}
+    <p><strong>Адрес доставки: </strong>{{ order.order_address }}</p>
+    {% else %}
+    <p><strong>Адрес не предоставлен.</strong></p>
+    {% endif %}
+<table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Товар</th>
+            <th>Цена</th>
+            <th>Количество</th>
+            <th>Стоимость</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in order.items.all %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.product.title }}</td>
+          <td>{{ item.product.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.total_item_price }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+</table>
+<p><strong>Итог:</strong> {{ order.total_price }}</p>
+</div>
+{% endfor %}
+{% endblock %}

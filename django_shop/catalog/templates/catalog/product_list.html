@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Каталог</h1>
+
+    {% if products %}
+    <ul>
+
+     {% for product in products %}
+      <li>
+        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a> --
+        <a href="{{ product.add_to_cart }}" type="button">Добавить в корзину.</a>
+        <p>{{ product.price }}</p>
+        <p><img src="{{ product.product_pic.url }}" alt="No image" style="width:100px;height:110px;"></p>
+      </li>
+      {% endfor %}
+
+    </ul>
+
+    {% else %}
+      <p>Товары пока не добавлены.</p>
+    {% endif %}
+
+{% block pagination %}
+    {# if is_paginated #}
+        <div class="pagination">
+            <span class="page-links">
+                {% if products.has_previous %}
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ products.number }} of {{ products.paginator.num_pages }}.
+                </span>
+                {% if products.has_next %}
+                    <a href="{{ request.path }}?page={{ products.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {# endif #}
+  {% endblock %}
+
+{% endblock %}

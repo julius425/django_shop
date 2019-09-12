@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h4>Корзина</h4>
+<table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Товар</th>
+            <th>Цена</th>
+            <th>Количество</th>
+            <th>Стоимость</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in order.items.all %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.product.title }}</td>
+          <td>{{ item.product.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.total_item_price }}</td>
+          <td><a href="{{ item.product.add_to_cart }}">Добавить еще</a></td>
+          <td><a href="{{ item.product.remove_from_cart }}">Убрать из корзины</a></td>
+        </tr>
+    {% endfor %}
+        </tbody>
+</table>
+    <p><strong>Итог:</strong> {{ order.total_price }}</p>
+    <p><a href="{% url 'cart:create_order' order.pk%}">Оформить заказ</a></p>
+
+
+{% endblock %}
