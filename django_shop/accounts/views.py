@@ -6,7 +6,7 @@ from .forms import ProfileForm
 from .models import Profile
 from functools import wraps
 from django.http import HttpResponseRedirect
-from .utils import ssl_redirect
+from django_shop.utils import ssl_redirect
 
 
 def sign_up(request):
