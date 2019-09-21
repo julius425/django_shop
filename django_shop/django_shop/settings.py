@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_shop.middleware.SecureRequiredMiddleware'
 ]
 
 ROOT_URLCONF = 'django_shop.urls'
@@ -135,3 +136,9 @@ MEDIA_ROOT = 'media'
 LOGIN_REDIRECT_URL = 'catalog:categories'
 LOGOUT_REDIRECT_URL = 'catalog:categories'
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SECURE_URLS = (
+    '/accounts/profile/',
+    '/accounts/signup/'
+)

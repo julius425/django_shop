@@ -24,13 +24,12 @@ def sign_up(request):
     return render(request, 'registration/signup.html', {'form':form})
 
 
-# @ssl_redirect
 @login_required
 def profile_view(request):
     profile = get_object_or_404(Profile, pk=request.user.pk)
     return render(request, 'accounts/profile.html', {'profile': profile})
 
-
+# @ssl_redirect
 @login_required
 def profile_edit(request, pk):
     profile = get_object_or_404(Profile, pk=pk)
@@ -46,3 +45,12 @@ def profile_edit(request, pk):
             'birthday': profile.birthday,
         })
     return render(request, 'accounts/edit_profile.html', {'form': form})
+
+
+def ssl_redirect_land(request):
+    return redirect('profile')
+
+
+def http_redirect_land(request):
+    return redirect('catalog')
+

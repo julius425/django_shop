@@ -6,8 +6,8 @@ services:
     command: gunicorn -c gunicorn.conf django_shop.wsgi
     volumes:
       - ./django_shop:/django_shop
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
 
 
   nginx:
@@ -17,11 +17,12 @@ services:
     command: nginx -g 'daemon off;'
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./django_shop/static:/var/www/static
       - ./django_shop/media:/var/www/media
 
-      - ./certs/localhost.crt:/etc/nginx/localhost.crt
-      - ./certs/localhost.key:/etc/nginx/localhost.key
+      - ./certs/mysite.crt:/etc/nginx/mysite.crt
+      - ./certs/mysite.key:/etc/nginx/mysite.key
 
 

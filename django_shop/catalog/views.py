@@ -1,17 +1,19 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from .models import Category, Product
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django_shop.utils import ssl_redirect
 
-
+# @ssl_redirect
 def categories_list(request):
+    # import pprint
+    # pprint.pprint(request.META)
     categories = Category.objects.all()
     context = {'categories': categories}
     return render(request, 'catalog/categories_list.html', context)
 
 
 def product_list(request, slug):
-    import pprint
-    pprint.pprint(request.META)
+
     category = get_object_or_404(Category, slug=slug)
     products_list = category.products.all()
     page = request.GET.get('page', '1')
