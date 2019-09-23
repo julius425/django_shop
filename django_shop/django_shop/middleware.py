@@ -15,12 +15,13 @@ class SecureRequiredMiddleware:
     def process_view(self, request, view_func, view_args, view_kwargs):
         site_url = request.META['HTTP_HOST']
         path = request.path_info
+        url = "://{}{}".format(site_url, path)
 
         if not request.is_secure() and path in settings.SECURE_URLS:
-            redirect_url = "https://{}{}".format(site_url, path)
+            redirect_url = "https" + url
             return HttpResponseRedirect(redirect_url)
         elif request.is_secure() and path not in settings.SECURE_URLS:
-            redirect_url = "http://{}{}".format(site_url, path)
+            redirect_url = "http" + url
             return HttpResponseRedirect(redirect_url)
         else:
             pass
