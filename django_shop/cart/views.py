@@ -70,7 +70,7 @@ def add_to_cart(request, pk):
 def remove_from_cart(request, pk):
     product = get_object_or_404(Product, pk=pk)
     profile = request.user.profile
-    orderitem = OrderItem.objects.get(product=product)
+    orderitem = OrderItem.objects.get(product=product, profile=profile)
     orders = Order.objects.filter(profile=profile, ordered=False)
     if orders.exists():
         order = orders[0]
@@ -85,14 +85,3 @@ def remove_from_cart(request, pk):
             return redirect('catalog:categories')
     else:
         return redirect('catalog:categories')
-
-
-
-
-
-
-
-
-
-
-
