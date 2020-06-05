@@ -3,7 +3,7 @@ Babel==2.7.0
 cffi==1.12.3
 configparser==3.5.0
 cryptography==2.7
-Django==2.2.4
+Django==2.2.13
 django-extensions==2.2.1
 django-phonenumber-field==3.0.1
 django-split-settings==0.3.0
