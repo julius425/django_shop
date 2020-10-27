@@ -2,7 +2,7 @@ asn1crypto==0.24.0
 Babel==2.7.0
 cffi==1.12.3
 configparser==3.5.0
-cryptography==2.7
+cryptography==3.2
 Django==2.2.4
 django-extensions==2.2.1
 django-phonenumber-field==3.0.1
